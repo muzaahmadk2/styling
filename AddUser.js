@@ -8,13 +8,15 @@ const AddUser = (props) => {
 
   const nameInputRef = useRef();
   const ageInputRef = useRef();
+  const collegeInputRef = useRef();
   const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     event.preventDefault();
     const enteredName = nameInputRef.current.value;
     const enteredAge = ageInputRef.current.value;
-
+    const enteredCollege = collegeInputRef.current.value;
+    
     if (enteredAge.trim().length === 0 || +enteredAge < 0) {
       setError({
         title: "invalid Age",
@@ -30,9 +32,10 @@ const AddUser = (props) => {
       return;
     }
 
-    props.onAddUser(enteredName, enteredAge);
+    props.onAddUser(enteredName, enteredCollege, enteredAge);
     nameInputRef.current.value = '';
     ageInputRef.current.value = '';
+    collegeInputRef.current.value = '';
   };
 
   const errorHandler = () => {
@@ -53,6 +56,8 @@ const AddUser = (props) => {
         <form onSubmit={addUserHandler}>
           <label htmlFor="username">username</label>
           <input id="username" type="text" ref={nameInputRef}></input>
+          <label htmlFor="collegename">College Name</label>
+          <input id="collegename" type="text" ref={collegeInputRef}></input>
           <label htmlFor="age">age</label>
           <input id="age" type="number" ref={ageInputRef}></input>
           <Button type="submit">Add User</Button>
